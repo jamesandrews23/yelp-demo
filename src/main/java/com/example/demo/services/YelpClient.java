@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.BusinessResults;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -23,6 +24,19 @@ public class YelpClient {
                 .headers(h -> h.setBearerAuth(AUTH_TOKEN))
                 .retrieve()
                 .bodyToMono(String.class)
+                .block();
+    }
+
+    public BusinessResults getRestaurantByPhone(String phone){
+        return this.client
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/search/phone")
+                        .queryParam("phone", phone)
+                        .build())
+                .headers(h -> h.setBearerAuth(AUTH_TOKEN))
+                .retrieve()
+                .bodyToMono(BusinessResults.class)
                 .block();
     }
 }
