@@ -1,6 +1,6 @@
 function executeSearch(){
     let search = document.getElementById('search').value;
-    fetch("/restaurant/phone/" + search).then(response => response.json()
+    fetch("/restaurant/phone/" + search).then(response => response.text()
         .then(data => document.getElementById('display').innerHTML = data));
 }
 
