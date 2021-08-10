@@ -23,7 +23,8 @@ public class YelpRestaurantController {
     @GetMapping("/phone/{phone}")
     public ResponseEntity<String> getRestaurantByPhone(@PathVariable String phone){
         BusinessResults response = client.getRestaurantByPhone(phone);
-        return new ResponseEntity<>("test", HttpStatus.OK);
+        String reviews = client.getReviewsById(response.getBusinesses().get(0).getId());
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @Autowired

@@ -39,4 +39,16 @@ public class YelpClient {
                 .bodyToMono(BusinessResults.class)
                 .block();
     }
+
+    public String getReviewsById(String id){
+        return this.client
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/{id}/reviews")
+                        .build(id))
+                .headers(h -> h.setBearerAuth(AUTH_TOKEN))
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
 }
