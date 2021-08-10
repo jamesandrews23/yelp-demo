@@ -11,6 +11,7 @@ public class DemoApplication implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index.html");
+
     }
 
     public static void main(String[] args) {
