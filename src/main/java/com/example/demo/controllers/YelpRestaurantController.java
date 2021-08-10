@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.BusinessResults;
+import com.example.demo.models.Review;
+import com.example.demo.models.ReviewsResult;
 import com.example.demo.services.YelpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController @RequestMapping("/restaurant")
 public class YelpRestaurantController {
@@ -21,10 +25,10 @@ public class YelpRestaurantController {
     }
 
     @GetMapping("/phone/{phone}")
-    public ResponseEntity<String> getRestaurantByPhone(@PathVariable String phone){
+    public ResponseEntity<List<Review>> getRestaurantByPhone(@PathVariable String phone){
         BusinessResults response = client.getRestaurantByPhone(phone);
-        String reviews = client.getReviewsById(response.getBusinesses().get(0).getId());
-        return new ResponseEntity<>(reviews, HttpStatus.OK);
+        ReviewsResult reviews = client.getReviewsById(response.getBusinesses().get(0).getId());
+        return new ResponseEntity<>(reviews.getReviews(), HttpStatus.OK);
     }
 
     @Autowired
